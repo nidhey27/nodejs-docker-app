@@ -1,0 +1,111 @@
+# version: "3.8"
+
+# networks:
+#   app-tier:
+#     driver: bridge
+
+# services:
+#   db:
+#     image: mysql
+#     command: --default-authentication-plugin=mysql_native_password
+#     restart: always
+#     expose:
+#       - "3306"
+#     ports:
+#       - "3306:3306"    
+#     networks:
+#       - app-tier      
+#     environment:
+#       DB: dapi_assg_db
+#       MYSQL_ALLOW_EMPTY_PASSWORD: ok
+#       PASSWORD: mypass123
+#       USER: root
+#       MYSQL_PASSWORD: mypass123
+#       HOST: localhost
+#   backend:
+#     depends_on:
+#       - db
+#     build: .
+#     command: bash -c 'while !</dev/tcp/db/3306; do sleep 1; done; npm start'
+#     ports:
+#       - "3000:3000"
+#     networks:
+#       - app-tier 
+# version: "3.2"
+# services:
+#   nodejs:
+#     build: 
+#       context: .
+#     image: nidhey/dapiassg
+#     networks:
+#       - frontend
+#       - backend
+#     environment:
+#       - MYSQL_HOST=moe-mysql-app
+#       - MYSQL_USER=moeuser
+#       - MYSQL_PASS=moepass
+#       - MYSQL_DB=moe_db
+#     volumes:
+#       - ./www/:/var/www/html/
+#     ports:
+#       - "3000:3000"
+#     container_name: moe-nodejs-app
+#   mysql:
+#     image: mysql
+#     networks:
+#       - backend
+#     environment:
+#       - MYSQL_ROOT_PASSWORD=root
+#       - MYSQL_USER=moeuser
+#       - MYSQL_PASSWORD=moepass 
+#       - MYSQL_DATABASE=moe_db
+#     container_name: moe-mysql-app
+#   phpmyadmin:
+#     image: phpmyadmin/phpmyadmin
+#     depends_on:
+#       - mysql
+#     networks:
+#       - backend
+#     ports:
+#       - "3306:3306"
+#     environment:
+#       - PMA_HOST=moe-mysql-app
+#       - PMA_PORT= 3306
+#     volumes:
+#       - /sessions
+#     container_name: moe-phpmyadmin-app
+# networks:
+#   frontend:
+#   backend:
+version: "1.0"
+
+services: 
+  mysql_server:
+    image: mysql
+    environment: 
+      - MYSQL_DATABASE=dapi_assg_db
+      - MYSQL_USER=dan
+      - MYSQL_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=secret
+    ports:
+      - "3306:3306"
+    container_name: dapi_assg_mysql
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports: 
+      - 3000:3000
+    volumes: 
+      - .:/app
+      - '/app/node_modules'
+    environment: 
+      - MYSQL_DATABASE=dapi_assg_db
+      - MYSQL_USER=dan
+      - MYSQL_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_HOST=dapi_assg_mysql
+    depends_on: 
+      - mysql_server
+  
+  
