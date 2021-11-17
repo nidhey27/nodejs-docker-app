@@ -136,7 +136,7 @@ exports.signinUser = async (req, res, next) => {
 exports.getAllUsers = async (req, res, next) => {
   try {
     let data = await Users.findAll({
-      attributes: ["id", "firstName", "lastName", "createdAt", "updatedAt"],
+      attributes: ["id", "firstName", "lastName","email" ,"createdAt", "updatedAt"],
     });
     if (data) return res.json(data);
   } catch (error) {
