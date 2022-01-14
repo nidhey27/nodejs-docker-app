@@ -9,6 +9,8 @@ exports.createUser = async (req, res, next) => {
   try {
     const { firstName, lastName, email, password } = req.body;
 
+    console.log(req.body);
+
     if (
       firstName == "" ||
       lastName == "" ||
