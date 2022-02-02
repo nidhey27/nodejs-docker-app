@@ -61,7 +61,7 @@ services:
     # build: 
     #   context: .
     #   dockerfile: Dockerfile
-    image: nidhey27/docker-assign
+    image: nidhey27/docker-assign:1.0
     ports: 
       - 3000:3000
     volumes: 

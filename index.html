@@ -60,7 +60,7 @@
 
 <script>
   console.log("Called");
-  let fetchRes = fetch("http://localhost:3000/api/user")
+  let fetchRes = fetch("/api/user")
     .then((response) => response.json())
     .then((data) => {
       console.log("Success:", data);
@@ -87,7 +87,7 @@
       password,
     };
     console.log(body);
-    let fetchRes = fetch("http://localhost:3000/api/user/signup", {
+    let fetchRes = fetch("/api/user/signup", {
       method: "POST",
       mode: "cors",
       headers: {
