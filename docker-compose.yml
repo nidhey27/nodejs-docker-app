@@ -61,7 +61,7 @@ services:
     # build: 
     #   context: .
     #   dockerfile: Dockerfile
-    image: dapiassg_app
+    image: nidhey27/docker-assign
     ports: 
       - 3000:3000
     volumes: 
