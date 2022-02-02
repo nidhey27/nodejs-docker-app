@@ -1,65 +1,59 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: dapiassg-mysql
-  labels:
-    app: dapiassg
-spec:
-  ports:
-    - port: 3306
-  selector:
-    app: dapiassg
-    tier: mysql
-  clusterIP: None
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mysql-pv-claim
-  labels:
-    app: dapiassg
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 20Gi
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dapiassg-mysql
+  name: mysql-deployment
   labels:
-    app: dapiassg
+    app: mysql
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: dapiassg
-      tier: mysql
-  strategy:
-    type: Recreate
+      app: mysql
   template:
     metadata:
       labels:
-        app: dapiassg
-        tier: mysql
+        app: mysql
     spec:
       containers:
-      - image: mysql:5.6
-        name: mysql
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mysql-pass
-              key: password
+      - name: mysql
+        image: mysql
         ports:
         - containerPort: 3306
-          name: mysql
-        volumeMounts:
-        - name: mysql-persistent-storage
-          mountPath: /var/lib/mysql
-      volumes:
-      - name: mysql-persistent-storage
-        persistentVolumeClaim:
-          claimName: mysql-pv-claim
+        env:
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: mysql-user
+        - name: MYSQL_PASSWORD  
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: mysql-password  
+        - name: MYSQL_ROOT_PASSWORD  
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: mysql-password  
+        - name: MYSQL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: mysql-db
+        - name: MYSQL_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: mysql-config
+              key: mysql-url
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+spec:
+  selector:
+    app: mysql
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306

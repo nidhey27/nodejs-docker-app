@@ -58,9 +58,10 @@ services:
       - "3306:3306"
     container_name: dapi_assg_mysql
   app:
-    build: 
-      context: .
-      dockerfile: Dockerfile
+    # build: 
+    #   context: .
+    #   dockerfile: Dockerfile
+    image: dapiassg_app
     ports: 
       - 3000:3000
     volumes: 
