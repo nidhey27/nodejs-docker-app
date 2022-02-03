@@ -3,6 +3,6 @@ kind: Secret
 metadata: 
   name: mysql-secret
 data:
-  mysql-user: cm9vdA0K
-  mysql-password: cm9vdHBhc3N3b3JkDQo=
-  mysql-db: bXlzcWxkYg0K
+  mysql-user: YWRtaW4=
+  mysql-password: c2VjcmV0
+  mysql-db: bXlzcWxkYg==
