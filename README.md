@@ -36,6 +36,6 @@ YOUR-INSTANCE-PUBLIC-IP:8080
 4. Configure Jenkins
 * The default Username is `admin`
 * Grab the default password
-* Password Location:/var/lib/jenkins/secrets/initialAdminPassword
+* Password Location: `/var/lib/jenkins/secrets/initialAdminPassword`
 * Install Suggested Plugins
 * Create another admin user id
