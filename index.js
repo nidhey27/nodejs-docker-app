@@ -23,7 +23,7 @@ app.get("/rvsp", (req, res, next) => {
 app.get("/", (req, res, next) => {
   return res.status(200).json({
     status: true,
-    message: "Hackthon RSVP List API",
+    message: "Nodejs Docker App",
   });
 });
 
