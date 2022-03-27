@@ -41,7 +41,7 @@ YOUR-INSTANCE-PUBLIC-IP:8080
 * Create another admin user id
 
 
-##### Let's install nvm in AWS EC2 using the command
+## Let's install nvm in AWS EC2 using the command
 
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
 
@@ -50,3 +50,18 @@ After that,you need to activate the nvm to use it. activate the nvm using the co
 . ~/.nvm/nvm.sh
 
 nvm install node
+
+## Install Docker
+sudo yum update
+sudo yum install docker
+sudo systemctl enable docker.service
+sudo systemctl start docker.service
+sudo systemctl status docker.service
+```
+# Setup User to UserGroup
+sudo usermod -a -G docker $USER
+
+# Delete All Running Conatiners and Images
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+```
