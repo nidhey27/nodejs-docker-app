@@ -2,6 +2,7 @@
 // insertOrganization()
 //
 //
+//
 // async getData(){
 //     let users = await insertuser()
 //     let ogranizations = await insertOrganization()
