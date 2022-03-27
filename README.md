@@ -39,3 +39,14 @@ YOUR-INSTANCE-PUBLIC-IP:8080
 * Password Location: `/var/lib/jenkins/secrets/initialAdminPassword`
 * Install Suggested Plugins
 * Create another admin user id
+
+
+##### Let's install nvm in AWS EC2 using the command
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+
+After that,you need to activate the nvm to use it. activate the nvm using the command,
+
+. ~/.nvm/nvm.sh
+
+nvm install node
