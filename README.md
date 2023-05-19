@@ -1,4 +1,4 @@
-# Install Jenkins on AWS EC2
+## Install Jenkins on AWS EC2
 
 ## Prerequisites
 1. EC2 Instance
